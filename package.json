@@ -1,0 +1,34 @@
+{
+	"name": "minifylinks",
+	"version": "1.0.0",
+	"description": "Proyecto para portfolio profesional como desarrollador web Fullstack",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"dev": "nodemon --env-file=.env index.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/retrovertigo1981/minifyLinks.git"
+	},
+	"author": "Sebastián Peña <sebastian.pena.jorquera@gmail.com>",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/retrovertigo1981/minifyLinks/issues"
+	},
+	"homepage": "https://github.com/retrovertigo1981/minifyLinks#readme",
+	"dependencies": {
+		"argon2": "^0.41.1",
+		"cookie-parser": "^1.4.7",
+		"express": "^5.1.0",
+		"jsonwebtoken": "^9.0.2",
+		"pg": "^8.14.1",
+		"pg-hstore": "^2.3.4",
+		"sequelize": "^6.37.7"
+	},
+	"devDependencies": {
+		"dotenv": "^16.4.7",
+		"nodemon": "^3.1.9",
+		"sequelize-cli": "^6.6.2"
+	}
+}

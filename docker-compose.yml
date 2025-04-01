@@ -1,0 +1,28 @@
+version: '3'
+services:
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_USER: fuzzdev
+      POSTGRES_DB: minifyLinks_DB
+      POSTGRES_PASSWORD: test123     
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin123
+    ports:
+      - "8080:80"
+    volumes:
+      - pgadmin-data:/pgadmin4/data
+    depends_on:
+      - postgres
+
+volumes:
+  postgres-data:
+  pgadmin-data:
