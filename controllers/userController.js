@@ -6,8 +6,9 @@ const userController = {}
 
 // crear usuarios
 
-userController.createuser = async (req, res, next) => {
+userController.createUser = async (req, res, next) => {
     const data = req.body
+    console.log(data)
     try {
         const user = await User.create(data)
         return res.status(201).json(user)
@@ -42,13 +43,17 @@ userController.getUserById = async (req, res, next) => {
 // actualizar un usuario por id
 
 userController.updateUser = async (req, res, next) => {
-    const { } = req.params
+    const { id } = req.params
     const data = req.body
     try {
-        const user = await User.update(data, { where: { id }, individualHooks: true })
-        return res.status(200).json(user)
+        const updated = await User.update(data, { where: { id } });
+        if (updated) {
+            const updatedUser = await User.findByPk(id);
+            return res.status(200).json(updatedUser);
+        }
+        return res.status(404).json({ message: "Usuario no encontrado" });
     } catch (error) {
-        next(error)
+        next(error);
 
     }
 }
@@ -56,13 +61,16 @@ userController.updateUser = async (req, res, next) => {
 userController.deleteUser = async (req, res, next) => {
     const { id } = req.params
     try {
-        const user = await User.destroy({ where: { id } })
-        if (!user) {
-            return res.status(404).json({ message: "Usuario no encontrado" })
+        const deleted = await User.destroy({ where: { id } })
+        if (deleted) {
+            return res.status(200).json({ message: "Usuario Eliminado" })
         }
-        return res.status(200).json({ message: "Usuario Eliminado" })
+        return res.status(404).json({ message: "Usuario no encontrado" })
+
     } catch (error) {
         next(error)
 
     }
 }
+
+module.exports = { userController }
