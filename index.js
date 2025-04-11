@@ -1,6 +1,8 @@
 const express = require("express")
-const { usersRouter } = require("./routes")
-const { errorHandler } = require("./middlewares")
+const cookieParser = require("cookie-parser")
+const { usersRouter, linkRouter, sessionsRouter } = require("./routes")
+const { errorHandler , CheckAuthMiddleware} = require("./middlewares")
+
 
 
 const app = express()
@@ -13,11 +15,17 @@ app.get("/", (req, res) => {
 
 
 // Middlewares
+app.use(cookieParser())
 app.use(express.json());
+app.use(CheckAuthMiddleware)
 
 // Routes
 
 app.use("/users", usersRouter)
+app.use("/links", linkRouter)
+app.use("/", linkRouter)
+app.use("/auth", sessionsRouter)
+
 
 // Error handling middleware
 app.use(errorHandler);

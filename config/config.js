@@ -11,7 +11,8 @@ const envConfig = {
         "host": env.DB_HOST,
         "dialect": "postgres",
     },
-    JWT_SECRET: env.JWT_SECRET
+    JWT_SECRET: env.JWT_SECRET,
+    BASE_URL: env.BASE_URL
 }
 
 module.exports = envConfig

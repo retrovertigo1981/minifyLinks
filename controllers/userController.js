@@ -1,4 +1,3 @@
-const { where } = require("sequelize")
 const db = require("../models")
 const { User } = db
 
@@ -34,6 +33,10 @@ userController.getUserById = async (req, res, next) => {
     const { id } = req.params
     try {
         const user = await User.findByPk(id)
+        if (!user) {
+            return res.status(404).json({ message: "Usuario no encontrado" })
+        }
+
         return res.status(200).json(user)
     } catch (error) {
         next(error)

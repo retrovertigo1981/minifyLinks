@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
   Link.init({
     userId: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
     },
     originalLink: {
       type: DataTypes.TEXT,
