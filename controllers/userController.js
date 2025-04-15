@@ -7,7 +7,7 @@ const userController = {}
 
 userController.createUser = async (req, res, next) => {
     const data = req.body
-    console.log(data)
+
     try {
         const user = await User.create(data)
         return res.status(201).json(user)

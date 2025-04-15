@@ -1,7 +1,7 @@
 const express = require("express")
 const cookieParser = require("cookie-parser")
 const { usersRouter, linkRouter, sessionsRouter } = require("./routes")
-const { errorHandler , CheckAuthMiddleware} = require("./middlewares")
+const { errorHandler, CheckAuthMiddleware } = require("./middlewares")
 
 
 
@@ -21,10 +21,13 @@ app.use(CheckAuthMiddleware)
 
 // Routes
 
+// rutas específicas
 app.use("/users", usersRouter)
 app.use("/links", linkRouter)
-app.use("/", linkRouter)
 app.use("/auth", sessionsRouter)
+
+// ruta raíz
+app.use("/", linkRouter)
 
 
 // Error handling middleware

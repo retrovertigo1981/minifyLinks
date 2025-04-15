@@ -6,20 +6,18 @@ const { Link } = db
 const linkController = {}
 
 linkController.getLinksByUserId = async (req, res, next) => {
-    const {userId}  = req.params
+    const { userId } = req.params
+    console.log(userId)
     try {
-        const links = await Link.findAll({ where: { userId } });
+        const links = await Link.findAll({ where: { userId: userId } });
         return res.status(200).json(links);
     } catch (error) {
-        return res.status(500).json({ error: "Error al obtener los enlaces" });
+        next(error);
     }
 }
 
 linkController.createLink = async (req, res, next) => {
-    // console.log('req.user en controlador:', req.user); // Para depurar
-    // if (!req.user) {
-    //     return res.status(401).json({ message: "Debes estar autenticado para crear un enlace" });
-    // }
+
     const userId = req.user ? req.user?._id : null;
     const { originalLink } = req.body;
 
@@ -54,22 +52,27 @@ linkController.createLink = async (req, res, next) => {
 };
 
 linkController.redirectLink = async (req, res, next) => {
-    const {shortCode} = req.params
+    const { shortCode } = req.params
     try {
-        const link = await Link.findOne({where: {shortLink: shortCode}})
+        const link = await Link.findOne({ where: { shortLink: shortCode } })
 
         if (!link) {
-            return res.status(404).json({Error: "Enlace no econtrado"})
+            return res.status(404).json({ Error: "Enlace no econtrado" })
         }
-        
+
         link.clickCount += 1;
         await link.save();
+
+        const userIp = req.ip
+        console.log(userIp)
 
         res.redirect(link.originalLink)
     } catch (error) {
         next(error)
     }
 }
+
+
 
 module.exports = {
     linkController

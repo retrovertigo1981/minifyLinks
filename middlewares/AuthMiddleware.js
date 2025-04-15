@@ -1,4 +1,4 @@
-const {verifyToken} = require("../utils")
+const { verifyToken } = require("../utils")
 
 const CheckAuthMiddleware = (req, res, next) => {
     try {
@@ -6,11 +6,10 @@ const CheckAuthMiddleware = (req, res, next) => {
         if (!isAuthenticated) {
             req.user = null; // Aseguramos que req.user sea null si no hay autenticación
         }
-        console.log('Estado de autenticación:', !!req.user);
-        console.log('Usuario en req.user:', req.user);
+
         next();
     } catch (error) {
-        console.log('Error en CheckAuthMiddleware:', error);
+
         req.user = null;
         next();
     }

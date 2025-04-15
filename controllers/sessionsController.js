@@ -9,7 +9,7 @@ sessionsController.login = async (req, res, next) => {
      * email: provisto por el usuario
      * password: provisto por el usuario (sin encriptar)
      */
-    
+
     const { email, password } = req.body
 
     try {
@@ -35,7 +35,7 @@ sessionsController.login = async (req, res, next) => {
 
         })
 
-        // console.log("Signature: " , signature)
+
         return res.cookie('Bearer', signature).json({ message: 'Usuario loggeado' })
     } catch (error) {
         next(error)
@@ -43,7 +43,7 @@ sessionsController.login = async (req, res, next) => {
 }
 
 sessionsController.logout = async (req, res, next) => {
-    console.log(req.user)
+
     if (req.user) {
         return res.clearCookie('Bearer').json({ message: 'Sesión cerrada' })
     }
